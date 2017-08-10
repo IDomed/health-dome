@@ -78,6 +78,7 @@ void readForCard()
   content.toUpperCase();
   // Change the UID below to the tag/card that you want to use for access
   // Use DumpInfo (File > Examples > MFRC522 > DumpInfo) to get this infomation
+  Serial.println(content.substring(1));
   if (content.substring(1) == targetUID) 
   {
     if(alarmActive == true)
