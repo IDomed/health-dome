@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  #USER
+  RewriteRule ^user/login/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=u&r_code=u_login&email=$1&pass=$2 [NC,L]
+  RewriteRule ^user/register/?$ /les/routes/route_gestor.php?r_type=u&r_code=u_register [NC,L]
+  RewriteRule ^user/new/image/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=u&r_code=u_image&id_user=$1&hash=$2 [NC,L]
+
+  #TRIP
+  RewriteRule ^trip/all/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_all [NC,L]
+  RewriteRule ^trip/show/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_get&id_trip=$1 [NC,L]
+  RewriteRule ^user/trips/new/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_new&id_user=$1&hash=$2 [NC,L]
+  RewriteRule ^user/trips/my/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_user&id_user=$1 [NC,L]
+  RewriteRule ^trip/images/upload/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_image&trip_id=$1&id_user=$2&hash=$3 [NC,L]
+  RewriteRule ^trip/routes/add/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_place&trip_id=$1&id_user=$2&hash=$3 [NC,L]
+  RewriteRule ^trip/like/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([0-9]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_like&trip_id=$1&id_user=$2&hash=$3&like=$4 [NC,L]
+  RewriteRule ^trip/follow/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([0-9]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=t_follow&trip_id=$1&id_user=$2&hash=$3&follow=$4 [NC,L]
+  RewriteRule ^trip/comment/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=t&r_code=f_comment&trip_id=$1&id_user=$2&hash=$3 [NC,L]
+    
+
+  #PLACE
+  RewriteRule ^place/show/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=p&r_code=p_get&id_place=$1 [NC,L]
+  RewriteRule ^place/search/([a-z0-9A-Z@._-]+)/?$ /les/routes/route_gestor.php?r_type=p&r_code=p_search&query=$1 [NC,L]
+
+  #IMAGE
+  RewriteRule ^img/upload/?$ /les/libs/img_upload.php [NC,L]
+
+  #TESTES
+  RewriteRule ^tests/?$ /tests.php [NC,L]  
+</IfModule>
