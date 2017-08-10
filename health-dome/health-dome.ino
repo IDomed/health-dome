@@ -1,8 +1,12 @@
 /*
- * Arduino Ultrasonic Alarm
+ * Project based on Arduino Ultrasonic Alarm
  * by Mark Ladoing
- * 
  * Updated April 19, 2017
+ * 
+ * Heath Dome
+ * by João Pandolfi
+ *  
+ *  Updated Aug 10, 2017
  */
 #include <SPI.h>
 #include <MFRC522.h>
