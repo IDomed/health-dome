@@ -1,0 +1,4 @@
+GND => Negative Point on the power rail
+ECHO => Digital Pin 7
+TRIG => Digital Pin 6
+VCC => Positive Point on the power rail
