@@ -9,12 +9,12 @@ https://youtu.be/jUM1Hjlvq44
 ## Organização do projeto
 ### health-dome
 
-Codigo e documentação referente ao micro controlador (Arduino)
+Código e documentação referente ao microcontrolador (Arduino)
 
 
 ### server-dome
 
-Codigo, organização e documentação dos servidores
+Código, organização e documentação dos servidores
 
 ## Responsáveis
 * Fabiano Filho
