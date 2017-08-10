@@ -1,0 +1,8 @@
+SDA => Digital Pin 10
+SCK => Digital Pin 13
+MOSI => Digital Pin 11
+MISO => Digital Pin 12
+GND => GND (you can connect this either directly to a GND Pin or to a negative point on the power rail)
+IRQ => ***NOT USED***
+RST => Digital Pin 9
+3.3V => 3.3V Pin (DO NOT CONNECT IT TO 5V AS THIS WILL DAMAGE THE READER)
