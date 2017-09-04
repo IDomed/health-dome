@@ -18,5 +18,5 @@ Código, organização e documentação dos servidores
 
 ## Responsáveis
 * Fabiano Filho
-* Guilerme Crespo
-
+* Guilherme Crespo
+* João Pandolfi
