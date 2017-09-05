@@ -11,6 +11,11 @@ https://youtu.be/jUM1Hjlvq44
 
 Código e documentação referente ao microcontrolador (Arduino)
 
+#### Código do leito
+* leito.ino
+
+#### Código do lavabo
+* lavabo.ino
 
 ### server-dome
 
