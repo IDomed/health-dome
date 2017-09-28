@@ -15,7 +15,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 
 
 //Time
-#define lockTimeSeconds 15
+#define lockTimeSeconds 1
 #define readTimeMs 500
 #define loopTimeMs 50
 #define beepTimeMs 200
@@ -66,8 +66,11 @@ void loop() {
         
         lockAlarm = 1;
         Serial.println("ALARME ATIVADO");
-        
-        if(hasCard()){
+        if(checkSameCard()){
+          Serial.println("CARTAO AINDA ATIVO");
+          resetTime();
+        }
+        else if(hasCard()){
             if(cleanCard()){
                  Serial.println(F("\n**CARTAO LIMPO**\n"));
                  lockTime = 1; 
@@ -102,6 +105,11 @@ void readDelay(){
 
 void loopDelay(){
  delay(loopTimeMs);
+}
+
+void resetTime(){
+  lockTime = 1;
+  currentTime = 0;
 }
 
 /*
@@ -202,6 +210,15 @@ void wrongCardSong(){
 void closeConnection(){
   mfrc522.PICC_HaltA(); // Halt PICC
   mfrc522.PCD_StopCrypto1();  // Stop encryption on PCD
+}
+
+
+int checkSameCard(){
+  if(mfrc522.PICC_ReadCardSerial()){
+    if(mfrc522.PICC_IsNewCardPresent())
+      return 1;
+  }
+  return 0;
 }
 
 
