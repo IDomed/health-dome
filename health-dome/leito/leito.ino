@@ -15,7 +15,7 @@ MFRC522 mfrc522(SS_PIN, RST_PIN);   // Create MFRC522 instance
 
 
 //Time
-#define lockTimeSeconds 1
+#define lockTimeSeconds 10
 #define readTimeMs 500
 #define loopTimeMs 50
 #define beepTimeMs 200
@@ -32,6 +32,7 @@ float calculatedRelativeTime;
 int currentTime;
 byte lockTime;
 byte lockAlarm;
+byte nuidCARD[4];
 
 //*****************************************************************************************//
 void setup() {
@@ -42,7 +43,8 @@ void setup() {
   //initualize RFID                        
   SPI.begin();  // Init SPI bus
   mfrc522.PCD_Init(); // Init MFRC522 card    
-  
+  initializeLastCard(); //Init Buffer Card
+
   //Initialize BUZZER and LEDs
   pinMode(buzzPin, OUTPUT);
   
@@ -66,12 +68,14 @@ void loop() {
         
         lockAlarm = 1;
         Serial.println("ALARME ATIVADO");
-        if(checkSameCard()){
-          Serial.println("CARTAO AINDA ATIVO");
-          resetTime();
-        }
-        else if(hasCard()){
-            if(cleanCard()){
+        if(hasCard()){
+            if(checkSameCard()){
+              resetTime();
+              lockTime = 1;
+              Serial.println(F("\n**MESMO CARTAO**\n"));
+            }
+            else if(cleanCard()){
+                 setLastCard();
                  Serial.println(F("\n**CARTAO LIMPO**\n"));
                  lockTime = 1; 
                  currentTime++;
@@ -123,6 +127,7 @@ byte inActivatedTime(){
     if(currentTime < calculatedRelativeTime)
         return 1;
     
+    initializeLastCard();
     return 0;
 }
 
@@ -208,17 +213,28 @@ void wrongCardSong(){
 * Close RFID Connection
 */
 void closeConnection(){
-  mfrc522.PICC_HaltA(); // Halt PICC
+  //mfrc522.PICC_HaltA(); // Halt PICC
   mfrc522.PCD_StopCrypto1();  // Stop encryption on PCD
 }
 
+void setLastCard(){
+  for(int i =0; i<4; i++){
+    nuidCARD[i] = mfrc522.uid.uidByte[i];
+  }
+}
+
+void initializeLastCard(){
+  for(int i =0; i<4; i++){
+    nuidCARD[i] = 0xFF;
+  }
+}
 
 int checkSameCard(){
-  if(mfrc522.PICC_ReadCardSerial()){
-    if(mfrc522.PICC_IsNewCardPresent())
-      return 1;
+  bool same = true;
+  for(int i =0; i<4; i++){
+     same = same && (mfrc522.uid.uidByte[i] == nuidCARD[i]);
   }
-  return 0;
+  return same;
 }
 
 
@@ -246,6 +262,7 @@ int cleanCard(){
   for (byte i = 0; i < 6; i++) key.keyByte[i] = 0xFF;
 
   mfrc522.PICC_DumpDetailsToSerial(&(mfrc522.uid)); //dump some details about the card
+
 
   //-------------------------------------------
 
